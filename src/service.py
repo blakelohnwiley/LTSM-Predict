@@ -5,7 +5,7 @@ import sys
 sys.path.insert(1, os.path.join(os.getcwd(), "../src/models"))
 
 from dynamic_model import DynamicModel
-from tensorflow.keras.models import save_model
+from tensorflow.keras.models import save_model,load_model
 from static import (full_url, params, method, target_col,
                     window_len, zero_base,
                     test_size, output_size, neurons, dropout,
@@ -74,14 +74,35 @@ class Service:
         return True
 
     #TODO:
-    # Implement predict via restful API
+    # Add methods to convert data submitted via post to data format
+    # that he model expects. Look at code below for example.
 
-    # def predict(self, X):
-    #     # Load model
-    #     model = load_model("models/ModelA")
-    #
-    #     # Execute
-    #     results = model.predict(X)
-    #     if results is not None and results != False:
-    #         return results
-    #     return False
+    """
+    print(test_data)
+    print(X_test)
+    print(y_test)
+    print(test[target_col][window_len:])
+    targets = test[target_col][window_len:]
+    preds = model.predict(X_test).squeeze()
+    print(preds)
+    print(preds)
+    print(preds)
+    print(X_test[0:])
+    mean_absolute_error(preds, y_test)
+    # new_test_data = test_data[0:5][0:1]
+    # print(len(new_test_data))
+    # sample_test_data = extract_window_data(test_data,window_len,zero_base)
+    # print(len(sample_test_data))
+    """
+
+    def predict(self, X):
+        MODEL_DIR = f"../src/models/1/{self.model_name}"
+        # Load model
+        model = load_model(MODEL_DIR)
+        print(X)
+
+        # Execute
+        results = model.predict(X)
+        if results is not None and results != False:
+            return results
+        return False

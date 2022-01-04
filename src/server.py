@@ -29,9 +29,10 @@ def service(service_name=None, model_name=None):
         return Response(f"Service: {service_name}. Model: {model_name}. Success.", )
     # TODO: Implement once this is part is finished. This will require to use tensorserve
     # POST Request is required to get the X data for prediction process
-    # elif service_name == 'predict':
-    #     json_ = request.json
-    #     service.predict(X=json)
+    elif service_name == 'predict':
+        json_ = request.json
+        service.predict(X=json)
+    return Response(f"Service: {service_name}. Model: {model_name}. Success.", )
 
 
 if __name__ == "__main__":
